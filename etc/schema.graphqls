@@ -1,0 +1,29 @@
+type Query {
+    codilarBannerSlider(sliderId: Int!): CodilarBannerSlider @resolver(class: "Codilar\\BannerSlider\\Model\\Resolver\\BannerSlider") @doc(description: "Get banner slider bu slider ID")
+}
+
+type CodilarBannerSlider {
+    slider_id: Int
+    title: String
+    is_show_title: Int
+    is_enabled: Int
+    banners: [CodilarBannerSliderBanner]
+}
+
+type CodilarBannerSliderBanner {
+    slider_id: Int
+    resource_type: String
+    resource_path: String
+    is_enabled: Int
+    title: String
+    alt_text: String
+    link: String
+    sort_order: Int
+    resource_map: CodilarBannerSliderResourceMap
+}
+
+type CodilarBannerSliderResourceMap {
+    title: String
+    min_width: Int
+    max_width: Int
+}

@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<!--
+/**
+ *
+ * @package     magento2
+ * @author      Jayanka Ghosh (joy)
+ * @license     https://opensource.org/licenses/OSL-3.0 Open Software License v. 3.0 (OSL-3.0)
+ * @link        https://www.codilar.com/
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="codilar_bannerslider_slider" resource="default" engine="innodb" comment="Codilar Bannerslider Slider Table">
+        <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true"
+                comment="Entity ID"/>
+        <column xsi:type="varchar" name="title" nullable="false" comment="Slider Title"/>
+        <column xsi:type="smallint" name="is_show_title" padding="2" unsigned="true" nullable="false"
+                default="0" comment="Show Title"/>
+        <column xsi:type="smallint" name="is_enabled" padding="2" unsigned="true" nullable="false"
+                default="0" comment="Is Enabled"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Creation Time"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Update Time"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+    </table>
+    <table name="codilar_bannerslider_banner" resource="default" engine="innodb" comment="Codilar Bannerslider Banner Table">
+        <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true"
+                comment="Entity ID"/>
+        <column xsi:type="int" name="slider_id" padding="10" unsigned="true" nullable="false" identity="false"
+                comment="Slider ID"/>
+        <column xsi:type="varchar" name="title" nullable="false" comment="Slider Title"/>
+        <column xsi:type="int" name="resource_map_id" padding="10" unsigned="true" nullable="false" identity="false"
+                comment="Image Map ID"/>
+        <column xsi:type="varchar" name="resource_type" length="255" default="0" nullable="false"
+                comment="Resouce Type"/>
+        <column xsi:type="text" name="resource_path" nullable="false" comment="Resource Path/URL"/>
+        <column xsi:type="varchar" name="alt_text" nullable="false" comment="Alt Text"/>
+        <column xsi:type="varchar" name="link" nullable="false" comment="Link URL"/>
+        <column xsi:type="smallint" name="is_enabled" padding="2" unsigned="true" nullable="false"
+                default="0" comment="Is Enabled"/>
+        <column xsi:type="int" name="sort_order" padding="10" unsigned="true" nullable="false" identity="false"
+                default="1" comment="Entity ID"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Creation Time"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Update Time"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="COD_BAN_BAN_SLI_ID_COD_BAN_SLI_ENT_ID"
+                    table="codilar_bannerslider_banner" column="slider_id" referenceTable="codilar_bannerslider_slider"
+                    referenceColumn="entity_id" onDelete="CASCADE"/>
+        <constraint xsi:type="foreign" referenceId="COD_BAN_BAN_RES_MAP_ID_COD_BAN_RES_MAP_ENT_ID"
+                    table="codilar_bannerslider_banner" column="resource_map_id" referenceTable="codilar_bannerslider_resource_map"
+                    referenceColumn="entity_id" onDelete="CASCADE"/>
+    </table>
+    <table name="codilar_bannerslider_resource_map" resource="default" engine="innodb" comment="Codilar Bannerslider Resource Map Table">
+        <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true"
+                comment="Entity ID"/>
+        <column xsi:type="varchar" name="title" length="100" nullable="false" comment="Resource Map Title"/>
+        <column xsi:type="int" name="min_width" padding="10" unsigned="true" nullable="true" comment="Resource Map Min Width"/>
+        <column xsi:type="int" name="max_width" padding="10" unsigned="true" nullable="true" comment="Resource Map Max Width"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Creation Time"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Update Time"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+    </table>
+</schema>

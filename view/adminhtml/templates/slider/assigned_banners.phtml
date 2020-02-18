@@ -1,0 +1,48 @@
+<?php
+/**
+ *
+ * @package     magento2
+ * @author      Jayanka Ghosh (joy)
+ * @license     https://opensource.org/licenses/OSL-3.0 Open Software License v. 3.0 (OSL-3.0)
+ * @link        https://www.codilar.com/
+ */
+/** @var \Codilar\BannerSlider\Block\Adminhtml\Slider\AssinedBanners $block */
+$bannerData = $block->getFormattedBanners();
+?>
+<div class="assigned_banners">
+    <?php if (count($bannerData)): ?>
+            <?php foreach ($bannerData as $resourceMapId => $banners): ?>
+                <div class="resource-map">
+                    <h3>
+                        <label>
+                            <a href="<?php echo $block->getResourceMapUrl($resourceMapId) ?>" target="_blank">
+                                <?php echo $banners['title'] ?>
+                            </a>
+                        </label>
+                    </h3>
+                    <ul>
+                        <?php foreach ($banners['banners'] as $banner): ?>
+                        <li>
+                            <a href="<?php echo $block->getUrl('*/banner/edit', ['entity_id' => $banner['entity_id']]) ?>" target="_blank" title="<?php echo $banner['title'] ?>">
+                                <?php echo $banner['resource_path'] ?>
+                            </a>
+                        </li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+            <?php endforeach; ?>
+    <?php else: ?>
+        <h2><?php echo __('No banners assigned to slider') ?></h2>
+    <?php endif; ?>
+</div>
+<style type="text/css">
+    .assigned_banners .resource-map {
+        padding: 10px;
+        border-top: 1px solid silver;
+    }
+    .assigned_banners li {
+        list-style: none;
+        display: inline-block;
+        padding: 10px;
+    }
+</style>

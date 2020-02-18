@@ -1,0 +1,35 @@
+<?php
+/**
+ *
+ * @package     magento2
+ * @author      Jayanka Ghosh (joy)
+ * @license     https://opensource.org/licenses/OSL-3.0 Open Software License v. 3.0 (OSL-3.0)
+ * @link        https://www.codilar.com/
+ */
+/** @var \Codilar\BannerSlider\Block\Widget\Slider\SuffixBlock\SlickSliderInit $block */
+$widgetSpecificClassName = $block->getData('widget_id');
+/** @var \Codilar\BannerSlider\Block\Widget\Slider $widget */
+$widget = $block->getData('widget_instance');
+?>
+<script type="text/javascript">
+    require([
+        'jquery',
+        'codilar/bannerslider'
+    ], function ($) {
+        var element = $('.<?php echo $widgetSpecificClassName ?>').find('.slides');
+        element.on('init', function (event, slick) {
+            // remove banners not fiting the current resource map
+            slick.$slides.each(function (key, slide) {
+                slide = $(slide);
+                var rmMinW = parseInt(slide.data('rm-minw'));
+                var rmMaxW = parseInt(slide.data('rm-maxw'));
+                var screenWidth = $(window).width();
+                if ((rmMinW && rmMinW > screenWidth) || (rmMaxW && rmMaxW < screenWidth)) {
+                    slide.remove();
+                    return;
+                }
+            });
+        });
+        element.slick(<?php echo \json_encode($widget->getSliderOptions()) ?>);
+    });
+</script>

@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+/**
+ *
+ * @package     magento2
+ * @author      Jayanka Ghosh (joy)
+ * @license     https://opensource.org/licenses/OSL-3.0 Open Software License v. 3.0 (OSL-3.0)
+ * @link        https://www.codilar.com/
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Codilar_BannerSlider::banner_slider" title="Banner Slider" translate="title" module="Codilar_BannerSlider" sortOrder="100" parent="Magento_Backend::content" resource="Codilar_BannerSlider::banner_slider"/>
+        <add id="Codilar_BannerSlider::slider" title="Manage Sliders" translate="title" module="Codilar_BannerSlider" sortOrder="10" action="codbansli/slider" parent="Codilar_BannerSlider::banner_slider" resource="Codilar_BannerSlider::slider"/>
+        <add id="Codilar_BannerSlider::banner" title="Manage Banners" translate="title" module="Codilar_BannerSlider" sortOrder="20" action="codbansli/banner" parent="Codilar_BannerSlider::banner_slider" resource="Codilar_BannerSlider::banner"/>
+        <add id="Codilar_BannerSlider::resource_map" title="Manage Resource Maps" translate="title" module="Codilar_BannerSlider" sortOrder="30" action="codbansli/resmap" parent="Codilar_BannerSlider::banner_slider" resource="Codilar_BannerSlider::resource_map"/>
+    </menu>
+</config>

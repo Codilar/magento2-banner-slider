@@ -1,0 +1,19 @@
+<?php
+/**
+ *
+ * @package     magento2
+ * @author      Jayanka Ghosh (joy)
+ * @license     https://opensource.org/licenses/OSL-3.0 Open Software License v. 3.0 (OSL-3.0)
+ * @link        https://www.codilar.com/
+ */
+/** @var \Codilar\BannerSlider\Block\Widget\Slider\SuffixBlock\FullWidthStyling $block */
+$widgetSpecificClassName = $block->getData('widget_id');
+/** @var \Codilar\BannerSlider\Block\Widget\Slider $widget */
+$widget = $block->getData('widget_instance');
+?>
+<style type="text/css">
+    .<?php echo $widgetSpecificClassName ?> .slides .item.yt_video iframe{
+        width: 100%;
+        min-height: 600px;
+    }
+</style>

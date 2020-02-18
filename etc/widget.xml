@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ *
+ * @package     magento2
+ * @author      Jayanka Ghosh (joy)
+ * @license     https://opensource.org/licenses/OSL-3.0 Open Software License v. 3.0 (OSL-3.0)
+ * @link        https://www.codilar.com/
+ */
+-->
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Widget:etc/widget.xsd">
+    <widget id="codilar_bannerslider" class="Codilar\BannerSlider\Block\Widget\Slider" is_email_compatible="true"
+            placeholder_image="Codilar_BannerSlider::images/slider_widget.png">
+        <label translate="true">Codilar Banner Slider</label>
+        <description translate="true">Show a slider with assigned banners</description>
+        <parameters>
+            <parameter name="slider_id" xsi:type="select" source_model="Codilar\BannerSlider\Model\Config\Source\Slider" visible="true" required="true" sort_order="10">
+                <label translate="true">Slider</label>
+            </parameter>
+            <parameter name="items_to_show" xsi:type="text" visible="true" required="true" sort_order="20">
+                <label translate="true">Items to show</label>
+                <value>1</value>
+            </parameter>
+            <parameter name="sliding_speed" xsi:type="text" visible="true" required="true" sort_order="30">
+                <label translate="true">Speed</label>
+                <value>500</value>
+            </parameter>
+            <parameter name="autoplay" xsi:type="select" source_model="Magento\Config\Model\Config\Source\Yesno" visible="true" required="true" sort_order="40">
+                <label translate="true">Autoplay</label>
+            </parameter>
+            <parameter name="autoplay_speed" xsi:type="text" visible="true" required="true" sort_order="50">
+                <label translate="true">Autoplay delay (in milliseconds)</label>
+                <value>2000</value>
+            </parameter>
+            <parameter name="animation_style" xsi:type="select" visible="true" required="true" sort_order="60">
+                <label translate="true">Animation Style</label>
+                <options>
+                    <option name="slide" value="slide" selected="true">
+                        <label translate="true">Slide</label>
+                    </option>
+                    <option name="fade" value="fade">
+                        <label translate="true">Fade</label>
+                    </option>
+                </options>
+            </parameter>
+            <parameter name="show_nav" xsi:type="select" source_model="Magento\Config\Model\Config\Source\Yesno" visible="true" required="true" sort_order="70">
+                <label translate="true">Show navigation buttons</label>
+            </parameter>
+            <parameter name="show_dots" xsi:type="select" source_model="Magento\Config\Model\Config\Source\Yesno" visible="true" required="true" sort_order="80">
+                <label translate="true">Show dots</label>
+            </parameter>
+            <parameter name="infinite_scroll" xsi:type="select" source_model="Magento\Config\Model\Config\Source\Yesno" visible="true" required="true" sort_order="90">
+                <label translate="true">Infinite scroll</label>
+            </parameter>
+            <parameter name="full_width" xsi:type="select" source_model="Magento\Config\Model\Config\Source\Yesno" visible="true" required="true" sort_order="100">
+                <label translate="true">Full Width</label>
+            </parameter>
+        </parameters>
+    </widget>
+</widgets>

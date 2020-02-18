@@ -1,0 +1,45 @@
+<?php
+/**
+ *
+ * @package     magento2
+ * @author      Jayanka Ghosh (joy)
+ * @license     https://opensource.org/licenses/OSL-3.0 Open Software License v. 3.0 (OSL-3.0)
+ * @link        https://www.codilar.com/
+ */
+/** @var \Codilar\BannerSlider\Block\Widget\Slider $block */
+$slider = $block->getSlider();
+$className = $block->getClassName();
+$sliderSpecificClassName = $className . "-" . $slider->getEntityId();
+$widgetSpecificClassName = $sliderSpecificClassName . '-' . $block->getWidgetUniqId();
+?>
+<?php if ($slider && $slider->getIsEnabled()): ?>
+    <div class="<?php echo "$className $sliderSpecificClassName $widgetSpecificClassName" ?>" id="<?php echo $widgetSpecificClassName ?>">
+        <?php if ($slider->getIsShowTitle()): ?>
+            <h3>
+                <?php echo $slider->getTitle() ?>
+            </h3>
+        <?php endif; ?>
+        <div class="slides <?php echo $block->getData('full_width') ? 'full-width' : '' ?>">
+            <?php foreach ($slider->getBanners() as $banner): ?>
+                <?php if ($banner->getIsEnabled()): ?>
+                    <div class="slide"
+                         data-rm-minw="<?php echo $banner->getResourceMap()->getMinWidth() ?>"
+                         data-rm-maxh="<?php echo $banner->getResourceMap()->getMaxWidth() ?>"
+                    >
+                        <?php echo $block->render($banner, $widgetSpecificClassName) ?>
+                    </div>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        </div>
+    </div>
+    <?php foreach ($block->getSuffixBlocks() as $suffixBlock): ?>
+        <?php
+            $suffixBlock->addData([
+                'widget_instance' => $block,
+                'widget_id' => $widgetSpecificClassName,
+                'slider' => $slider
+            ]);
+            echo $suffixBlock->toHtml();
+        ?>
+    <?php endforeach; ?>
+<?php endif; ?>

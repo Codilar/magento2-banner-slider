@@ -1,0 +1,19 @@
+<?php
+/**
+ *
+ * @package     magento2
+ * @author      Jayanka Ghosh (joy)
+ * @license     https://opensource.org/licenses/OSL-3.0 Open Software License v. 3.0 (OSL-3.0)
+ * @link        https://www.codilar.com/
+ */
+/** @var \Codilar\BannerSlider\Block\Widget\Slider\Banner\Renderer\LocalImage $block */
+$banner = $block->getBanner();
+?>
+<div class="item image">
+    <a href="<?php echo $banner->getLink() ?: '#' ?>">
+        <img src="<?php echo $block->getMediaUrl() . $banner->getResourcePath() ?>"
+             alt="<?php echo $banner->getAltText() ?>"
+             style="width: 100%"
+        />
+    </a>
+</div>

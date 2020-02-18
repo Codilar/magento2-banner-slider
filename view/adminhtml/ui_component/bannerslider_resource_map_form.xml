@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ *
+ * @package     magento2
+ * @author      Jayanka Ghosh (joy)
+ * @license     https://opensource.org/licenses/OSL-3.0 Open Software License v. 3.0 (OSL-3.0)
+ * @link        https://www.codilar.com/
+ */
+-->
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">bannerslider_resource_map_form.bannerslider_resource_map_form_data_source</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">Resource Map Information</item>
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+    </argument>
+    <settings>
+        <buttons>
+            <button name="save" class="Codilar\BannerSlider\Block\Adminhtml\ResourceMap\Edit\SaveButton"/>
+            <button name="delete" class="Codilar\BannerSlider\Block\Adminhtml\ResourceMap\Edit\DeleteButton"/>
+            <button name="back" class="Codilar\BannerSlider\Block\Adminhtml\ResourceMap\Edit\BackButton"/>
+        </buttons>
+        <namespace>bannerslider_resource_map_form</namespace>
+        <dataScope>data</dataScope>
+        <deps>
+            <dep>bannerslider_resource_map_form.bannerslider_resource_map_form_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="bannerslider_resource_map_form_data_source">
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+        <settings>
+            <submitUrl path="codbansli/resmap/save"/>
+        </settings>
+        <dataProvider class="Codilar\BannerSlider\Model\ResourceMap\DataProvider" name="bannerslider_resource_map_form_data_source">
+            <settings>
+                <requestFieldName>entity_id</requestFieldName>
+                <primaryFieldName>entity_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <fieldset name="general">
+        <settings>
+            <label/>
+        </settings>
+        <field name="entity_id" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">resource_map</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <visible>false</visible>
+                <dataScope>entity_id</dataScope>
+            </settings>
+        </field>
+        <field name="title" sortOrder="20" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">resource_map</item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+                <dataType>text</dataType>
+                <label translate="true">Title</label>
+                <dataScope>title</dataScope>
+            </settings>
+        </field>
+        <field name="min_width" sortOrder="30" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">resource_map</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Min Width</label>
+                <dataScope>min_width</dataScope>
+            </settings>
+        </field>
+        <field name="max_width" sortOrder="40" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">resource_map</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Max Width</label>
+                <dataScope>max_width</dataScope>
+            </settings>
+        </field>
+    </fieldset>
+</form>

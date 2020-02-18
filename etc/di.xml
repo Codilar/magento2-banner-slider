@@ -1,0 +1,163 @@
+<?xml version="1.0"?>
+<!--
+/**
+ *
+ * @package     magento2
+ * @author      Jayanka Ghosh (joy)
+ * @license     https://opensource.org/licenses/OSL-3.0 Open Software License v. 3.0 (OSL-3.0)
+ * @link        https://www.codilar.com/
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Codilar\BannerSlider\Api\Data\SliderInterface" type="Codilar\BannerSlider\Model\Slider" />
+    <preference for="Codilar\BannerSlider\Api\Data\BannerInterface" type="Codilar\BannerSlider\Model\Banner" />
+    <preference for="Codilar\BannerSlider\Api\Data\ResourceMapInterface" type="Codilar\BannerSlider\Model\ResourceMap" />
+    <preference for="Codilar\BannerSlider\Api\SliderRepositoryInterface" type="Codilar\BannerSlider\Model\SliderRepository" />
+    <preference for="Codilar\BannerSlider\Api\Data\SliderSearchResultInterface" type="Magento\Framework\Api\SearchResults" />
+    <preference for="Codilar\BannerSlider\Api\BannerRepositoryInterface" type="Codilar\BannerSlider\Model\BannerRepository" />
+    <preference for="Codilar\BannerSlider\Api\Data\BannerSearchResultInterface" type="Magento\Framework\Api\SearchResults" />
+    <preference for="Codilar\BannerSlider\Api\ResourceMapRepositoryInterface" type="Codilar\BannerSlider\Model\ResourceMapRepository" />
+    <preference for="Codilar\BannerSlider\Api\Data\ResourceMapSearchResultInterface" type="Magento\Framework\Api\SearchResults" />
+    <type name="Codilar\BannerSlider\Model\Config\Source\ResourceType">
+        <arguments>
+            <argument name="resources" xsi:type="array">
+                <item name="local_image" xsi:type="string">Local Image</item>
+                <item name="external_image" xsi:type="string">External Image</item>
+                <item name="youtube_video" xsi:type="string">Youtube Video</item>
+                <item name="custom_html" xsi:type="string">Custom HTML</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Codilar\BannerSlider\Model\Banner\ResourcePath\ProcessorPool">
+        <arguments>
+            <argument name="processors" xsi:type="array">
+                <item name="local_image" xsi:type="object">Codilar\BannerSlider\Model\Banner\ResourcePath\Processor\LocalImage</item>
+                <item name="external_image" xsi:type="object">Codilar\BannerSlider\Model\Banner\ResourcePath\Processor\ExternalImage</item>
+                <item name="youtube_video" xsi:type="object">Codilar\BannerSlider\Model\Banner\ResourcePath\Processor\YoutubeVideo</item>
+                <item name="custom_html" xsi:type="object">Codilar\BannerSlider\Model\Banner\ResourcePath\Processor\CustomHtml</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Codilar\BannerSlider\Ui\Component\DataProvider">
+        <arguments>
+            <argument name="filterProcessors" xsi:type="array">
+                <item name="fulltext" xsi:type="object">Codilar\BannerSlider\Ui\Component\DataProvider\Slider\FullTextFilter</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="Codilar\BannerSlider\Ui\Component\DataProvider\Slider" type="Codilar\BannerSlider\Ui\Component\DataProvider">
+        <arguments>
+            <argument name="filterProcessors" xsi:type="array">
+                <item name="fulltext" xsi:type="object">Codilar\BannerSlider\Ui\Component\DataProvider\Slider\FullTextFilter</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Codilar\BannerSlider\Ui\Component\DataProvider\ResourceMap" type="Codilar\BannerSlider\Ui\Component\DataProvider">
+        <arguments>
+            <argument name="filterProcessors" xsi:type="array">
+                <item name="fulltext" xsi:type="object">Codilar\BannerSlider\Ui\Component\DataProvider\ResourceMap\FullTextFilter</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Codilar\BannerSlider\Ui\Component\DataProvider\Banner" type="Codilar\BannerSlider\Ui\Component\DataProvider" />
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="bannerslider_slider_listing_data_source" xsi:type="string">Codilar\BannerSlider\Model\ResourceModel\Slider\Grid\Collection</item>
+                <item name="bannerslider_resource_map_listing_data_source" xsi:type="string">Codilar\BannerSlider\Model\ResourceModel\ResourceMap\Grid\Collection</item>
+                <item name="bannerslider_banner_listing_data_source" xsi:type="string">Codilar\BannerSlider\Model\ResourceModel\Banner\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="Codilar\BannerSlider\Model\Banner\ImageUploader" type="Codilar\BannerSlider\Model\ImageUploader">
+        <arguments>
+            <argument name="baseTmpPath" xsi:type="string">codilar/tmp/banner/images</argument>
+            <argument name="basePath" xsi:type="string">codilar/banner/images</argument>
+            <argument name="allowedExtensions" xsi:type="array">
+                <item name="jpg" xsi:type="string">jpg</item>
+                <item name="jpeg" xsi:type="string">jpeg</item>
+                <item name="gif" xsi:type="string">gif</item>
+                <item name="png" xsi:type="string">png</item>
+            </argument>
+            <argument name="allowedMimeTypes" xsi:type="array">
+                <item name="jpg" xsi:type="string">image/jpg</item>
+                <item name="jpeg" xsi:type="string">image/jpeg</item>
+                <item name="gif" xsi:type="string">image/gif</item>
+                <item name="png" xsi:type="string">image/png</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Codilar\BannerSlider\Controller\Adminhtml\Banner\Image\Upload">
+        <arguments>
+            <argument name="imageUploader" xsi:type="object">Codilar\BannerSlider\Model\Banner\ImageUploader</argument>
+        </arguments>
+    </type>
+    <type name="Codilar\BannerSlider\Model\Banner\ResourcePath\Processor\LocalImage">
+        <arguments>
+            <argument name="imageUploader" xsi:type="object">Codilar\BannerSlider\Model\Banner\ImageUploader</argument>
+        </arguments>
+    </type>
+    <virtualType name="Codilar\BannerSlider\Banner\DataProvider\Pool" type="Magento\Ui\DataProvider\Modifier\Pool">
+        <arguments>
+            <argument name="modifiers" xsi:type="array">
+                <item name="local_image" xsi:type="array">
+                    <item name="class" xsi:type="string">Codilar\BannerSlider\Ui\DataProvider\Banner\Form\Modifier\LocalImage</item>
+                    <item name="sortOrder" xsi:type="number">10</item>
+                </item>
+                <item name="external_image" xsi:type="array">
+                    <item name="class" xsi:type="string">Codilar\BannerSlider\Ui\DataProvider\Banner\Form\Modifier\ExternalImage</item>
+                    <item name="sortOrder" xsi:type="number">20</item>
+                </item>
+                <item name="youtube_video" xsi:type="array">
+                    <item name="class" xsi:type="string">Codilar\BannerSlider\Ui\DataProvider\Banner\Form\Modifier\YoutubeVideo</item>
+                    <item name="sortOrder" xsi:type="number">30</item>
+                </item>
+                <item name="custom_html" xsi:type="array">
+                    <item name="class" xsi:type="string">Codilar\BannerSlider\Ui\DataProvider\Banner\Form\Modifier\CustomHtml</item>
+                    <item name="sortOrder" xsi:type="number">40</item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Codilar\BannerSlider\Model\Banner\DataProvider">
+        <arguments>
+            <argument name="pool" xsi:type="object">Codilar\BannerSlider\Banner\DataProvider\Pool</argument>
+        </arguments>
+    </type>
+    <type name="Codilar\BannerSlider\Ui\Component\Listing\Column\Banner\ResourcePath">
+        <arguments>
+            <argument name="processors" xsi:type="array">
+                <item name="local_image" xsi:type="object">Codilar\BannerSlider\Ui\Component\Listing\Column\Banner\ResourcePath\LocalImage</item>
+                <item name="external_image" xsi:type="object">Codilar\BannerSlider\Ui\Component\Listing\Column\Banner\ResourcePath\ExternalImage</item>
+                <item name="youtube_video" xsi:type="object">Codilar\BannerSlider\Ui\Component\Listing\Column\Banner\ResourcePath\YoutubeVideo</item>
+                <item name="custom_html" xsi:type="object">Codilar\BannerSlider\Ui\Component\Listing\Column\Banner\ResourcePath\CustomHtml</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Codilar\BannerSlider\Block\Widget\Slider\Banner\RendererPool">
+        <arguments>
+            <argument name="renderers" xsi:type="array">
+                <item name="local_image" xsi:type="object">Codilar\BannerSlider\Block\Widget\Slider\Banner\Renderer\LocalImage</item>
+                <item name="external_image" xsi:type="object">Codilar\BannerSlider\Block\Widget\Slider\Banner\Renderer\ExternalImage</item>
+                <item name="youtube_video" xsi:type="object">Codilar\BannerSlider\Block\Widget\Slider\Banner\Renderer\YoutubeVideo</item>
+                <item name="custom_html" xsi:type="object">Codilar\BannerSlider\Block\Widget\Slider\Banner\Renderer\CustomHtml</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Codilar\BannerSlider\Model\Resolver\DataProvider\Banner\ResourcePath">
+        <arguments>
+            <argument name="resolvers" xsi:type="array">
+                <item name="custom_html" xsi:type="object">Codilar\BannerSlider\Model\Resolver\DataProvider\Banner\ResourcePath\CustomHtml</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Codilar\BannerSlider\Block\Widget\Slider">
+        <arguments>
+            <argument name="suffixBlocks" xsi:type="array">
+                <item name="slick-slider-init" xsi:type="object">Codilar\BannerSlider\Block\Widget\Slider\SuffixBlock\SlickSliderInit</item>
+                <item name="full-width-styling" xsi:type="object">Codilar\BannerSlider\Block\Widget\Slider\SuffixBlock\FullWidthStyling</item>
+                <item name="youtube-video-styling" xsi:type="object">Codilar\BannerSlider\Block\Widget\Slider\SuffixBlock\YoutubeVideoStyling</item>
+            </argument>
+        </arguments>
+    </type>
+</config>
