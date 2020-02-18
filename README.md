@@ -11,6 +11,12 @@ But feel free to extend the module to make more types if you want!
 
 ### Also easily create different resource maps, to facilitate showing different kinds of banners for different screen resolutions (like mobile, desktop, tablet, and TV)!
 
+## Steps to install
+
+1. __Via Composer__ `composer require codilar/magento2-banner-slider` (__Recommended__)
+
+2. __Manually__ Clone or download [this repository](https://github.com/Codilar/magento2-banner-slider) and put it in `app/code/Codilar/BannerSlider`
+
 ## Steps to create a slider
 1. Login to your Admin panel
 2. Go to `Content > Banner Slider > Manage Sliders` and create a new slider
