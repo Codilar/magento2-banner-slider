@@ -24,7 +24,7 @@ $widgetSpecificClassName = $sliderSpecificClassName . '-' . $block->getWidgetUni
                 <?php if ($banner->getIsEnabled()): ?>
                     <div class="slide"
                          data-rm-minw="<?php echo $banner->getResourceMap()->getMinWidth() ?>"
-                         data-rm-maxh="<?php echo $banner->getResourceMap()->getMaxWidth() ?>"
+                         data-rm-maxw="<?php echo $banner->getResourceMap()->getMaxWidth() ?>"
                     >
                         <?php echo $block->render($banner, $widgetSpecificClassName) ?>
                     </div>
