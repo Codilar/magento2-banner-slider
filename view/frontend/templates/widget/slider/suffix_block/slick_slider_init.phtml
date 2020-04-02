@@ -16,16 +16,20 @@ $widget = $block->getData('widget_instance');
         'jquery',
         'codilar/bannerslider'
     ], function ($) {
-        $('.slide').each(function(key) {
-            slideElement = $(this);
-            var rmMinW = parseInt(slideElement.data('rm-minw'));
-            var rmMaxW = parseInt(slideElement.data('rm-maxw'));
-            var screenWidth = $(window).width();
-            if ((rmMinW && rmMinW > screenWidth) || (rmMaxW && rmMaxW < screenWidth)) {
-                slideElement.remove();
-            }
-        })
         var element = $('.<?php echo $widgetSpecificClassName ?>').find('.slides');
+        element.on('init', function (event, slick) {
+            // remove banners not fiting the current resource map
+            slick.$slides.each(function (key, slide) {
+                slide = $(slide);
+                var rmMinW = parseInt(slide.data('rm-minw'));
+                var rmMaxW = parseInt(slide.data('rm-maxw'));
+                var screenWidth = $(window).width();
+                if ((rmMinW && rmMinW > screenWidth) || (rmMaxW && rmMaxW < screenWidth)) {
+                    slide.remove();
+                    return;
+                }
+            });
+        });
         element.slick(<?php echo \json_encode($widget->getSliderOptions()) ?>);
     });
 </script>
