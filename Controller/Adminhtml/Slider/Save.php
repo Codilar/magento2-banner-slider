@@ -16,13 +16,12 @@ use Magento\Framework\Api\FilterBuilder;
 use Magento\Framework\App\Request\DataPersistorInterface;
 use Magento\Framework\App\ResponseInterface;
 use Magento\Framework\Exception\CouldNotSaveException;
-use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Cms\Api\PageRepositoryInterface;
 use Magento\Framework\Api\SearchCriteriaBuilder;
 use Magento\Framework\DataObject;
+use Magento\Framework\App\CacheInterface;
 use Magento\PageCache\Model\Cache\Type as PageCache;
-use Magento\Cms\Api\Data\PageSearchResultsInterface;
 
 class Save extends Action
 {
@@ -61,7 +60,7 @@ class Save extends Action
      * @param PageRepositoryInterface $pageRepositoryInterface
      * @param SearchCriteriaBuilder $searchCriteriaBuilder
      * @param FilterBuilder $filterBuilder
-     * @param PageCache $pageCache
+     * @param CacheInterface $cacheManager
      */
     public function __construct(
         Action\Context $context,
@@ -70,7 +69,8 @@ class Save extends Action
         PageRepositoryInterface $pageRepositoryInterface,
         SearchCriteriaBuilder $searchCriteriaBuilder,
         FilterBuilder $filterBuilder,
-        PageCache $pageCache
+        PageCache $pageCache,
+        CacheInterface $cacheManager
     )
     {
         parent::__construct($context);
@@ -80,6 +80,7 @@ class Save extends Action
         $this->searchCriteriaBuilder = $searchCriteriaBuilder;
         $this->filterBuilder = $filterBuilder;
         $this->pageCache = $pageCache;
+        $this->cacheManager = $cacheManager;
     }
 
     /**
@@ -106,7 +107,9 @@ class Save extends Action
             ]);
             $this->dataPersistor->set('bannerslider_slider', $model->getData());
             $model = $this->sliderRepository->save($model);
-            $this->cleanCmsPagesCache($id);
+            if ($id) {
+                $this->cleanCmsPagesCache($id);
+            }
             $this->dataPersistor->clear('bannerslider_slider');
             $this->messageManager->addSuccessMessage(__('Slider %1 saved successfully', $model->getEntityId()));
             switch ($this->getRequest()->getParam('back')) {
@@ -144,7 +147,7 @@ class Save extends Action
      * Clean all the CMS Pages which contain this specific slider_id
      *
      * @param int $slider_id
-     * @throws LocalizedException
+     * @throws \Magento\Framework\Exception\LocalizedException
      */
     protected function cleanCmsPagesCache(int $slider_id)
     {
@@ -154,15 +157,16 @@ class Save extends Action
             $pagesIds[] = $page->getId();
         }
 
-        $this->pageCache->clean(\Zend_Cache::CLEANING_MODE_MATCHING_ANY_TAG, $pagesIds);
+        $this->cacheManager->clean($this->getCacheTags($pagesIds));
+        $this->pageCache->clean(\Zend_Cache::CLEANING_MODE_MATCHING_TAG, $this->getCacheTags($pagesIds));
     }
 
     /**
      * Retrieves the pages that have to be purged from cache
      *
      * @param $slider_id
-     * @return PageSearchResultsInterface
-     * @throws LocalizedException
+     * @return \Magento\Cms\Api\Data\PageSearchResultsInterface
+     * @throws \Magento\Framework\Exception\LocalizedException
      */
     protected function getPagesToPurge($slider_id)
     {
