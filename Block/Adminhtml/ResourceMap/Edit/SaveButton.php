@@ -30,7 +30,7 @@ class SaveButton extends GenericButton
                                 'params' => [
                                     true,
                                     [
-                                        'back' => 'continue'
+                                        'back' => 'close'
                                     ]
                                 ]
                             ]
@@ -52,8 +52,8 @@ class SaveButton extends GenericButton
     {
         $options = [
             [
-                'id_hard' => 'save_and_close',
-                'label' => __('Save & Close'),
+                'id_hard' => 'save_and_continue',
+                'label' => __('Save & Continue'),
                 'data_attribute' => [
                     'mage-init' => [
                         'buttonAdapter' => [
@@ -64,7 +64,7 @@ class SaveButton extends GenericButton
                                     'params' => [
                                         true,
                                         [
-                                            'back' => 'close'
+                                            'back' => 'continue'
                                         ]
                                     ]
                                 ]
