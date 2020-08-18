@@ -29,7 +29,7 @@ if ($itemsToShow > 1) {
             <?php $i = 1; $j = 1; ?>
             <?php foreach ($banners as $key => $banner): ?>
                 <?php if ($banner->getIsEnabled()): ?>
-                    <div class="slide <?= $block->getTypeClassName(); ?>
+                    <div class="slide 
                     <?php if ($banner->getResourceMap()->getMinWidth() < 499): ?>
                         slide-mobile <?php if ($i > $itemsToShow): ?>hide-slide<?php else: $i++; ?><?php endif; ?>
                     <?php else: ?>

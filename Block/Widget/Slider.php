@@ -73,14 +73,12 @@ class Slider extends Template implements \Magento\Widget\Block\BlockInterface
         }
     }
 
+    /**
+     * @return string
+     */
     public function getClassName()
     {
         return 'codilar-bannerslider';
-    }
-
-    public function getTypeClassName()
-    {
-        return 'bannerslider-' . $this->getData('slider_type');
     }
 
     /**

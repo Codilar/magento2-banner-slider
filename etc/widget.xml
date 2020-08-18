@@ -18,17 +18,6 @@
             <parameter name="slider_id" xsi:type="select" source_model="Codilar\BannerSlider\Model\Config\Source\Slider" visible="true" required="true" sort_order="10">
                 <label translate="true">Slider</label>
             </parameter>
-            <parameter name="slider_type" xsi:type="select" visible="true" required="true" sort_order="60">
-                <label translate="true">Slider Type</label>
-                <options>
-                    <option name="normal" value="normal" selected="true">
-                        <label translate="true">Normal</label>
-                    </option>
-                    <option name="category" value="category">
-                        <label translate="true">Category</label>
-                    </option>
-                </options>
-            </parameter>
             <parameter name="items_to_show" xsi:type="text" visible="true" required="true" sort_order="20">
                 <label translate="true">Items to show</label>
                 <value>1</value>
