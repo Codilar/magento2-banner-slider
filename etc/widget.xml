@@ -50,9 +50,6 @@
             <parameter name="show_dots" xsi:type="select" source_model="Magento\Config\Model\Config\Source\Yesno" visible="true" required="true" sort_order="80">
                 <label translate="true">Show dots</label>
             </parameter>
-            <parameter name="infinite_scroll" xsi:type="select" source_model="Magento\Config\Model\Config\Source\Yesno" visible="true" required="true" sort_order="90">
-                <label translate="true">Infinite scroll</label>
-            </parameter>
             <parameter name="full_width" xsi:type="select" source_model="Magento\Config\Model\Config\Source\Yesno" visible="true" required="true" sort_order="100">
                 <label translate="true">Full Width</label>
             </parameter>

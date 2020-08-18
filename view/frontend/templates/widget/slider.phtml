@@ -11,6 +11,11 @@ $slider = $block->getSlider();
 $className = $block->getClassName();
 $sliderSpecificClassName = $className . "-" . $slider->getEntityId();
 $widgetSpecificClassName = $sliderSpecificClassName . '-' . $block->getWidgetUniqId();
+$itemsToShow = $block->getData('items_to_show');
+$style = '';
+if ($itemsToShow > 1) {
+    $style = ' style="display: flex;"';
+}
 ?>
 <?php if ($slider && $slider->getIsEnabled()): ?>
     <div class="<?php echo "$className $sliderSpecificClassName $widgetSpecificClassName" ?>" id="<?php echo $widgetSpecificClassName ?>">
@@ -19,12 +24,19 @@ $widgetSpecificClassName = $sliderSpecificClassName . '-' . $block->getWidgetUni
                 <?php echo $slider->getTitle() ?>
             </h3>
         <?php endif; ?>
-        <div class="slides <?php echo $block->getData('full_width') ? 'full-width' : '' ?>">
-            <?php foreach ($slider->getBanners() as $banner): ?>
+        <div class="slides <?php echo $block->getData('full_width') ? 'full-width' : '' ?>" <?= $style ?>>
+            <?php $banners = $slider->getBanners(); ?>
+            <?php $i = 1; $j = 1; ?>
+            <?php foreach ($banners as $key => $banner): ?>
                 <?php if ($banner->getIsEnabled()): ?>
-                    <div class="slide"
+                    <div class="slide 
+                    <?php if ($banner->getResourceMap()->getMinWidth() < 499): ?>
+                        slide-mobile <?php if ($i > $itemsToShow): ?>hide-slide<?php else: $i++; ?><?php endif; ?>
+                    <?php else: ?>
+                        slide-desktop <?php if ($j > $itemsToShow): ?>hide-slide<?php else: $j++; ?><?php endif; ?>
+                    <?php endif; ?>"
                          data-rm-minw="<?php echo $banner->getResourceMap()->getMinWidth() ?>"
-                         data-rm-maxh="<?php echo $banner->getResourceMap()->getMaxWidth() ?>"
+                         data-rm-maxw="<?php echo $banner->getResourceMap()->getMaxWidth() ?>"
                     >
                         <?php echo $block->render($banner, $widgetSpecificClassName) ?>
                     </div>
