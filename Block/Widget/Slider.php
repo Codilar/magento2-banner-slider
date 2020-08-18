@@ -78,6 +78,11 @@ class Slider extends Template implements \Magento\Widget\Block\BlockInterface
         return 'codilar-bannerslider';
     }
 
+    public function getTypeClassName()
+    {
+        return 'bannerslider-' . $this->getData('slider_type');
+    }
+
     /**
      * @param BannerInterface $banner
      * @param string $widgetClassName
@@ -110,8 +115,11 @@ class Slider extends Template implements \Magento\Widget\Block\BlockInterface
             'fade' => $this->getData('animation_style') === 'fade',
             'arrows' => $this->getData('show_nav') === '1',
             'dots' => $this->getData('show_dots') === '1',
-            'infinite' => true//$this->getData('infinite_scroll') === '1'
+            'infinite' => true,
+            'lazyLoad' => 'ondemand',
+            'adaptiveHeight' => true
         ];
+
         return $options;
     }
 

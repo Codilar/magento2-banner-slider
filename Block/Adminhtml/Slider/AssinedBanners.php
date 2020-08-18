@@ -56,6 +56,7 @@ class AssinedBanners extends Template
             $itemData['resource_map_title'] = $item->getResourceMap()->getTitle();
             $items[] = $itemData;
         }
+
         $dataSource = [
             'data' => [
                 'items' => $items

@@ -16,6 +16,7 @@ use Magento\Framework\Api\SearchCriteriaBuilderFactory;
 use Magento\Framework\Model\AbstractModel;
 use Codilar\BannerSlider\Model\ResourceModel\Slider as ResourceModel;
 use Codilar\BannerSlider\Model\Resolver\DataProvider\Banner\ResourcePath as ResourcePathResolver;
+use Magento\Framework\Api\SortOrderBuilder;
 
 class Slider extends AbstractModel implements SliderInterface
 {
@@ -54,13 +55,15 @@ class Slider extends AbstractModel implements SliderInterface
     private $resourcePathResolver;
 
     /**
+     * Slider constructor.
      * @param \Magento\Framework\Model\Context $context
      * @param \Magento\Framework\Registry $registry
      * @param BannerRepositoryInterface $bannerRepository
      * @param SearchCriteriaBuilderFactory $searchCriteriaBuilderFactory
      * @param ResourcePathResolver $resourcePathResolver
-     * @param \Magento\Framework\Model\ResourceModel\AbstractResource $resource
-     * @param \Magento\Framework\Data\Collection\AbstractDb $resourceCollection
+     * @param \Magento\Framework\Model\ResourceModel\AbstractResource|null $resource
+     * @param \Magento\Framework\Data\Collection\AbstractDb|null $resourceCollection
+     * @param SortOrderBuilder $sortOrderBuilder
      * @param array $data
      */
     public function __construct(
@@ -71,12 +74,14 @@ class Slider extends AbstractModel implements SliderInterface
         ResourcePathResolver $resourcePathResolver,
         \Magento\Framework\Model\ResourceModel\AbstractResource $resource = null,
         \Magento\Framework\Data\Collection\AbstractDb $resourceCollection = null,
+        SortOrderBuilder $sortOrderBuilder,
         array $data = []
     ) {
         parent::__construct($context, $registry, $resource, $resourceCollection, $data);
         $this->bannerRepository = $bannerRepository;
         $this->searchCriteriaBuilderFactory = $searchCriteriaBuilderFactory;
         $this->resourcePathResolver = $resourcePathResolver;
+        $this->sortOrder = $sortOrderBuilder;
         $this->_init(ResourceModel::class);
     }
 
@@ -171,8 +176,11 @@ class Slider extends AbstractModel implements SliderInterface
     public function getBanners(): array
     {
         if (!$this->banners) {
+            $sortOrder = $this->sortOrder->setField('sort_order')->setDirection('ASC')->create();
+
             $searchCriteria = $this->searchCriteriaBuilderFactory->create()
                 ->addFilter('slider_id', $this->getEntityId(), 'eq')
+                ->setSortOrders([$sortOrder])
                 ->create();
             $banners = $this->bannerRepository->getList($searchCriteria)->getItems();
             foreach ($banners as $banner) {
