@@ -103,14 +103,17 @@ class Slider extends Template implements \Magento\Widget\Block\BlockInterface
     public function getSliderOptions()
     {
         $options = [
-            'slidesToShow' => $this->getData('items_to_show'),
+            'slidesToShowInDesktop' => $this->getData('items_to_show_in_desktop'),
+            'slidesToShowInMobile' => $this->getData('items_to_show_in_mobile'),
             'speed' => $this->getData('sliding_speed'),
-            'autoplay' => $this->getData('autoplay') === '1',
+            'slider_autoplay' => $this->getData('slider_autoplay') === 'no'?false:$this->getData('slider_autoplay'),
+            'centerMode' => $this->getData('center_mode') === 'no'?false:$this->getData('center_mode'),
             'autoplaySpeed' => $this->getData('autoplay_speed'),
             'fade' => $this->getData('animation_style') === 'fade',
-            'arrows' => $this->getData('show_nav') === '1',
-            'dots' => $this->getData('show_dots') === '1',
-            'infinite' => true//$this->getData('infinite_scroll') === '1'
+            'arrows' => $this->getData('show_nav') === 'no'?false:$this->getData('show_nav'),
+            'dots' => $this->getData('show_dots') === 'no'?false:$this->getData('show_dots'),
+            'infinite' => $this->getData('infinite_scroll') === 'no'?false:$this->getData('infinite_scroll'),
+            'fullWidth' => $this->getData('full_width') === 'no'?false:$this->getData('full_width')
         ];
         return $options;
     }
