@@ -8,26 +8,31 @@
  * @link        https://www.codilar.com/
  */
 -->
-<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Widget:etc/widget.xsd">
-    <widget id="codilar_bannerslider" class="Codilar\BannerSlider\Block\Widget\Slider" is_email_compatible="true"
-            placeholder_image="Codilar_BannerSlider::images/slider_widget.png">
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Widget:etc/widget.xsd">
+    <widget id="codilar_bannerslider" class="Codilar\BannerSlider\Block\Widget\Slider" is_email_compatible="true" placeholder_image="Codilar_BannerSlider::images/slider_widget.png">
         <label translate="true">Codilar Banner Slider</label>
         <description translate="true">Show a slider with assigned banners</description>
         <parameters>
             <parameter name="slider_id" xsi:type="select" source_model="Codilar\BannerSlider\Model\Config\Source\Slider" visible="true" required="true" sort_order="10">
                 <label translate="true">Slider</label>
             </parameter>
-            <parameter name="items_to_show" xsi:type="text" visible="true" required="true" sort_order="20">
-                <label translate="true">Items to show</label>
+            <parameter name="items_to_show_in_desktop" xsi:type="text" visible="true" required="true" sort_order="20">
+                <label translate="true">Items to show In Desktop</label>
+                <value>1</value>
+            </parameter>
+            <parameter name="items_to_show_in_mobile" xsi:type="text" visible="true" required="true" sort_order="20">
+                <label translate="true">Items to show In Mobile</label>
                 <value>1</value>
             </parameter>
             <parameter name="sliding_speed" xsi:type="text" visible="true" required="true" sort_order="30">
                 <label translate="true">Speed</label>
                 <value>500</value>
             </parameter>
-            <parameter name="autoplay" xsi:type="select" source_model="Magento\Config\Model\Config\Source\Yesno" visible="true" required="true" sort_order="40">
+            <parameter name="slider_autoplay" xsi:type="select" source_model="Codilar\BannerSlider\Model\Config\Source\Widget\BannerSources" visible="true" required="true" sort_order="40">
                 <label translate="true">Autoplay</label>
+            </parameter>
+            <parameter name="center_mode" xsi:type="select" source_model="Codilar\BannerSlider\Model\Config\Source\Widget\BannerSources" visible="true" required="true" sort_order="40">
+                <label translate="true">Center Mode</label>
             </parameter>
             <parameter name="autoplay_speed" xsi:type="text" visible="true" required="true" sort_order="50">
                 <label translate="true">Autoplay delay (in milliseconds)</label>
@@ -44,16 +49,16 @@
                     </option>
                 </options>
             </parameter>
-            <parameter name="show_nav" xsi:type="select" source_model="Magento\Config\Model\Config\Source\Yesno" visible="true" required="true" sort_order="70">
+            <parameter name="show_nav" xsi:type="select" source_model="Codilar\BannerSlider\Model\Config\Source\Widget\BannerSources" visible="true" required="true" sort_order="70">
                 <label translate="true">Show navigation buttons</label>
             </parameter>
-            <parameter name="show_dots" xsi:type="select" source_model="Magento\Config\Model\Config\Source\Yesno" visible="true" required="true" sort_order="80">
+            <parameter name="show_dots" xsi:type="select" source_model="Codilar\BannerSlider\Model\Config\Source\Widget\BannerSources" visible="true" required="true" sort_order="80">
                 <label translate="true">Show dots</label>
             </parameter>
-            <parameter name="infinite_scroll" xsi:type="select" source_model="Magento\Config\Model\Config\Source\Yesno" visible="true" required="true" sort_order="90">
+            <parameter name="infinite_scroll" xsi:type="select" source_model="Codilar\BannerSlider\Model\Config\Source\Widget\BannerSources" visible="true" required="true" sort_order="90">
                 <label translate="true">Infinite scroll</label>
             </parameter>
-            <parameter name="full_width" xsi:type="select" source_model="Magento\Config\Model\Config\Source\Yesno" visible="true" required="true" sort_order="100">
+            <parameter name="full_width" xsi:type="select" source_model="Codilar\BannerSlider\Model\Config\Source\Widget\BannerSources" visible="true" required="true" sort_order="100">
                 <label translate="true">Full Width</label>
             </parameter>
         </parameters>
